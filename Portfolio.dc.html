@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#0a0e14">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0a0e14"/>
+    <circle cx="600" cy="300" r="6" fill="#35d6e6"/>
+    <circle cx="430" cy="220" r="5" fill="#35d6e6"/>
+    <circle cx="780" cy="250" r="5" fill="#a78bfa"/>
+    <circle cx="510" cy="400" r="5" fill="#35d6e6"/>
+    <circle cx="720" cy="390" r="5" fill="#a78bfa"/>
+    <g stroke="#35d6e6" stroke-width="1.5" opacity="0.4">
+      <line x1="600" y1="300" x2="430" y2="220"/>
+      <line x1="600" y1="300" x2="780" y2="250"/>
+      <line x1="600" y1="300" x2="510" y2="400"/>
+      <line x1="600" y1="300" x2="720" y2="390"/>
+    </g>
+    <text x="600" y="540" font-family="monospace" font-size="64" font-weight="700" fill="#e8eef5" text-anchor="middle">YN</text>
+    <text x="600" y="600" font-family="sans-serif" font-size="26" fill="#8a97a8" text-anchor="middle">Cloud &amp; DevOps Portfolio</text>
+  </svg>
+</template>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{margin:0;}
+  :root{
+    --bg:#0a0e14; --bg2:#0c121b; --card:#10161f; --card2:#131b26;
+    --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.14);
+    --text:#e8eef5; --dim:#8a97a8; --faint:#5b6675;
+    --accent:#35d6e6; --accent2:#a78bfa; --glow:rgba(53,214,230,0.25);
+  }
+  [data-theme="light"]{
+    --bg:#f4f6f9; --bg2:#eef1f6; --card:#ffffff; --card2:#f7f9fc;
+    --border:rgba(10,20,40,0.10); --border2:rgba(10,20,40,0.18);
+    --text:#0d1620; --dim:#4a5666; --faint:#8893a3;
+    --accent:#0b9fb3; --accent2:#7c4dff; --glow:rgba(11,159,179,0.18);
+  }
+  @keyframes revealUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:none;}}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.15;}}
+  ::selection{background:var(--accent);color:#04161a;}
+  ::-webkit-scrollbar{width:11px;height:11px;}
+  ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:8px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  [data-reveal]{opacity:0;}
+  [data-reveal].in{animation:revealUp .7s cubic-bezier(.16,.8,.3,1) forwards;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    [data-reveal]{opacity:1 !important;animation:none !important;}
+  }
+  a{color:inherit;}
+</style>
+</helmet>
+<div data-theme="{{ themeAttr }}" style="font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;position:relative;overflow-x:hidden;transition:background .4s ease,color .4s ease;">
+
+  <nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(20px,5vw,64px);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--border);">
+    <a href="#top" style="text-decoration:none;display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em;font-size:17px;color:var(--text);">
+      <span style="display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04161a;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;">YN</span>
+      <span>Yahya Nouri</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:clamp(14px,2.4vw,30px);">
+      <div style="display:none;align-items:center;gap:clamp(14px,2.4vw,30px);font-size:14px;font-weight:500;" id="navlinks">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
+          <a href="{{ n.href }}" class="navlink" style="text-decoration:none;color:var(--dim);transition:color .2s;padding:4px 0;" style-hover="color:var(--text);">{{ n.label }}</a>
+        </sc-for>
+      </div>
+      <button onClick="{{ toggleTheme }}" aria-label="Toggle theme" style="height:38px;padding:0 14px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--dim);cursor:pointer;font-size:13px;font-weight:500;font-family:'JetBrains Mono',monospace;display:grid;place-items:center;transition:border-color .2s,color .2s;" style-hover="border-color:var(--accent);color:var(--text);">{{ themeLabel }}</button>
+      <a href="{{ cvHref }}" download="" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04161a;font-weight:700;font-size:14px;box-shadow:0 6px 24px var(--glow);transition:transform .2s,box-shadow .2s;white-space:nowrap;" style-hover="transform:translateY(-2px);box-shadow:0 10px 32px var(--glow);">↓ Resume</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="top" style="position:relative;min-height:100vh;display:flex;align-items:center;padding:120px clamp(20px,5vw,64px) 60px;overflow:hidden;">
+    <canvas id="hero-net" style="position:absolute;inset:0;width:100%;height:100%;opacity:.7;"></canvas>
+    <div style="position:absolute;inset:0;background:radial-gradient(900px 500px at 78% 18%,var(--glow),transparent 60%);pointer-events:none;"></div>
+    <div style="position:relative;z-index:2;max-width:920px;">
+      <div style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);border:1px solid var(--border2);background:color-mix(in srgb,var(--card) 60%,transparent);padding:7px 14px;border-radius:999px;margin-bottom:26px;">
+        <span style="width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:blink 2.4s infinite;"></span>
+        Open to international &amp; remote roles
+      </div>
+      <h1 style="font-size:clamp(40px,7.4vw,82px);line-height:1.02;letter-spacing:-.035em;font-weight:900;margin:0 0 22px;">
+        Cloud &amp; DevOps<br>engineer building<br><span style="background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;">automation that scales.</span>
+      </h1>
+      <p style="font-size:clamp(16px,1.9vw,21px);line-height:1.6;color:var(--dim);max-width:660px;margin:0 0 36px;">
+        I architect end-to-end monitoring platforms, automate operational workflows, and migrate critical infrastructure to the cloud — with 5+ years across telecom and network systems at Huawei.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;">
+        <a href="#projects" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04161a;font-weight:700;font-size:15px;box-shadow:0 8px 30px var(--glow);transition:transform .2s,box-shadow .2s;" style-hover="transform:translateY(-3px);box-shadow:0 14px 40px var(--glow);">View my work →</a>
+        <a href="https://github.com/Yeyo-N" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:12px;border:1px solid var(--border2);background:var(--card);color:var(--text);font-weight:600;font-size:15px;transition:border-color .2s,transform .2s;" style-hover="border-color:var(--accent);transform:translateY(-3px);">GitHub</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:12px;border:1px solid var(--border2);background:var(--card);color:var(--text);font-weight:600;font-size:15px;transition:border-color .2s,transform .2s;" style-hover="border-color:var(--accent);transform:translateY(-3px);">LinkedIn</a>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:30px;margin-top:54px;">
+        <sc-for list="{{ heroStats }}" as="s" hint-placeholder-count="3">
+          <div>
+            <div style="font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.03em;font-family:'JetBrains Mono',monospace;color:var(--accent);">{{ s.value }}</div>
+            <div style="font-size:13px;color:var(--dim);margin-top:4px;">{{ s.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about" style="padding:clamp(70px,11vh,130px) clamp(20px,5vw,64px);max-width:1180px;margin:0 auto;">
+    <div data-reveal="" style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(36px,6vw,80px);align-items:start;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:.08em;margin-bottom:14px;">01 — ABOUT</div>
+        <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:0 0 24px;">Infrastructure-minded engineer who ships production systems.</h2>
+        <p style="font-size:17px;line-height:1.75;color:var(--dim);margin:0 0 18px;">I specialize in Cloud Architecture, DevOps, and data-driven automation. From a single core-network monitoring platform built solo — ETL pipeline, Docker stack, Python backend on PostgreSQL — to NOC ticketing automation that removed entire manual shifts, my work turns operational pain into reliable, measurable systems.</p>
+        <p style="font-size:17px;line-height:1.75;color:var(--dim);margin:0;">I'm now seeking international opportunities in Cloud Engineering, DevOps, or research-oriented Computer Science. Verified coursework from Imperial College, Harvard, and Johns Hopkins backs a strong foundation in mathematics and data science.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <sc-for list="{{ aboutFacts }}" as="f" hint-placeholder-count="4">
+          <div style="border:1px solid var(--border);background:var(--card);border-radius:14px;padding:18px 20px;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);letter-spacing:.05em;margin-bottom:6px;">{{ f.k }}</div>
+            <div style="font-size:16px;font-weight:600;color:var(--text);">{{ f.v }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" style="padding:clamp(50px,8vh,90px) clamp(20px,5vw,64px);max-width:1180px;margin:0 auto;">
+    <div data-reveal="">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:.08em;margin-bottom:14px;">02 — STACK</div>
+      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;margin:0 0 40px;">Tools I build with.</h2>
+    </div>
+    <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;">
+      <sc-for list="{{ skillGroups }}" as="g" hint-placeholder-count="4">
+        <div style="border:1px solid var(--border);background:var(--card);border-radius:18px;padding:26px;transition:border-color .25s,transform .25s;" style-hover="border-color:var(--accent);transform:translateY(-4px);">
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:18px;">
+            <span style="width:7px;height:7px;border-radius:2px;background:var(--accent);flex:none;"></span>
+            <h3 style="font-size:17px;font-weight:700;margin:0;letter-spacing:-.01em;">{{ g.title }}</h3>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="4">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;padding:6px 11px;border-radius:8px;background:var(--card2);border:1px solid var(--border);color:var(--dim);">{{ it }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" style="padding:clamp(50px,8vh,90px) clamp(20px,5vw,64px);max-width:1020px;margin:0 auto;">
+    <div data-reveal="">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:.08em;margin-bottom:14px;">03 — EXPERIENCE</div>
+      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;margin:0 0 44px;">Five years of building &amp; automating.</h2>
+    </div>
+    <div style="position:relative;padding-left:30px;border-left:1px solid var(--border);">
+      <sc-for list="{{ experiences }}" as="e" hint-placeholder-count="5">
+        <div data-reveal="" style="position:relative;padding-bottom:18px;margin-bottom:18px;">
+          <span style="position:absolute;left:-37px;top:22px;width:13px;height:13px;border-radius:50%;background:{{ e.dot }};border:3px solid var(--bg);box-shadow:0 0 0 1px var(--border2);"></span>
+          <div onClick="{{ e.onToggle }}" style="border:1px solid var(--border);background:var(--card);border-radius:16px;padding:22px 24px;cursor:pointer;transition:border-color .25s;" style-hover="border-color:var(--accent);">
+            <div style="display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+              <div>
+                <h3 style="font-size:18px;font-weight:700;margin:0 0 4px;letter-spacing:-.01em;">{{ e.role }}</h3>
+                <div style="font-size:14.5px;color:var(--dim);">{{ e.org }} · {{ e.loc }}</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--faint);white-space:nowrap;">{{ e.period }}</span>
+                <span style="font-size:13px;color:var(--accent);transform:{{ e.chevron }};transition:transform .25s;display:inline-block;">▾</span>
+              </div>
+            </div>
+            <sc-if value="{{ e.open }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:18px;border-top:1px solid var(--border);padding-top:16px;">
+                <ul style="margin:0 0 16px;padding-left:18px;display:flex;flex-direction:column;gap:9px;">
+                  <sc-for list="{{ e.points }}" as="p" hint-placeholder-count="3">
+                    <li style="font-size:14.5px;line-height:1.6;color:var(--dim);">{{ p }}</li>
+                  </sc-for>
+                </ul>
+                <div style="display:flex;flex-wrap:wrap;gap:7px;">
+                  <sc-for list="{{ e.tags }}" as="t" hint-placeholder-count="3">
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:4px 10px;border-radius:7px;background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);color:var(--accent);">{{ t }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" style="padding:clamp(50px,8vh,90px) clamp(20px,5vw,64px);max-width:1180px;margin:0 auto;">
+    <div data-reveal="">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:.08em;margin-bottom:14px;">04 — SELECTED WORK</div>
+      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;margin:0 0 12px;">Systems I designed end-to-end.</h2>
+      <p style="font-size:16px;color:var(--dim);margin:0 0 40px;max-width:560px;">Each one shipped to production and replaced manual, error-prone operations with measurable results.</p>
+    </div>
+    <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+      <sc-for list="{{ projects }}" as="p" hint-placeholder-count="3">
+        <div style="border:1px solid var(--border);background:linear-gradient(180deg,var(--card),var(--bg2));border-radius:20px;padding:28px;display:flex;flex-direction:column;transition:border-color .25s,transform .25s;position:relative;overflow:hidden;" style-hover="border-color:var(--accent);transform:translateY(-5px);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:600;color:var(--border2);margin-bottom:14px;">{{ p.no }}</div>
+          <h3 style="font-size:19px;font-weight:700;letter-spacing:-.015em;margin:0 0 16px;line-height:1.25;">{{ p.name }}</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);letter-spacing:.05em;margin-bottom:3px;">PROBLEM</div><div style="font-size:14px;line-height:1.55;color:var(--dim);">{{ p.problem }}</div></div>
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);letter-spacing:.05em;margin-bottom:3px;">BUILT</div><div style="font-size:14px;line-height:1.55;color:var(--dim);">{{ p.approach }}</div></div>
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.05em;margin-bottom:3px;">RESULT</div><div style="font-size:14px;line-height:1.55;color:var(--text);font-weight:600;">{{ p.result }}</div></div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;">
+            <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="3">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:4px 10px;border-radius:7px;background:var(--card2);border:1px solid var(--border);color:var(--dim);">{{ t }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- CERTS / EDUCATION -->
+  <section id="certs" style="padding:clamp(50px,8vh,90px) clamp(20px,5vw,64px);max-width:1180px;margin:0 auto;">
+    <div data-reveal="">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:.08em;margin-bottom:14px;">05 — CREDENTIALS</div>
+      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;margin:0 0 40px;">Certified &amp; rigorously trained.</h2>
+    </div>
+    <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:16px;">
+      <a href="{{ hcipHref }}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 12%,var(--card)),var(--card));border-radius:20px;padding:clamp(24px,3vw,32px);display:flex;flex-direction:column;transition:transform .25s,border-color .25s;" style-hover="transform:translateY(-4px);border-color:var(--accent);">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--accent);letter-spacing:.06em;">FIRST IN IRAN · EXPERT</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);font-weight:600;">Verify ↗</span>
+        </div>
+        <h3 style="font-size:clamp(19px,2.4vw,24px);font-weight:800;letter-spacing:-.02em;margin:0 0 8px;line-height:1.2;">HCIP — Cloud Service Solutions Architect</h3>
+        <p style="font-size:14.5px;color:var(--dim);margin:0 0 14px;line-height:1.55;">First Iranian to achieve Huawei's expert-level cloud architecture certification (2025).</p>
+        <div style="margin-top:auto;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--faint);word-break:break-all;">{{ hcipId }}</div>
+      </a>
+      <a href="{{ hciaHref }}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;border:1px solid var(--border);background:var(--card);border-radius:20px;padding:clamp(24px,3vw,32px);display:flex;flex-direction:column;transition:transform .25s,border-color .25s;" style-hover="transform:translateY(-4px);border-color:var(--accent);">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--dim);letter-spacing:.06em;">ASSOCIATE</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);font-weight:600;">Verify ↗</span>
+        </div>
+        <h3 style="font-size:clamp(19px,2.4vw,24px);font-weight:800;letter-spacing:-.02em;margin:0 0 8px;line-height:1.2;">HCIA — Huawei Cloud Services</h3>
+        <p style="font-size:14.5px;color:var(--dim);margin:0 0 14px;line-height:1.55;">Huawei Official Exam, 2025 — foundational cloud services certification.</p>
+        <div style="margin-top:auto;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--faint);word-break:break-all;">{{ hciaId }}</div>
+      </a>
+    </div>
+    <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;">
+      <sc-for list="{{ academics }}" as="a" hint-placeholder-count="6">
+        <a href="{{ a.href }}" target="{{ a.target }}" rel="noopener" onClick="{{ a.onClk }}" style="text-decoration:none;color:inherit;border:1px solid var(--border);background:var(--card);border-radius:14px;padding:18px 20px;display:block;transition:border-color .22s,transform .22s;" style-hover="border-color:var(--accent);transform:translateY(-3px);">
+          <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;">
+            <div style="font-size:15px;font-weight:600;margin-bottom:5px;line-height:1.35;">{{ a.title }}</div>
+            <sc-if value="{{ a.has }}" hint-placeholder-val="{{ false }}"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);white-space:nowrap;">Verify ↗</span></sc-if>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--faint);">{{ a.from }}</div>
+        </a>
+      </sc-for>
+    </div>
+    <div data-reveal="" style="margin-top:24px;border:1px solid var(--border);background:var(--card);border-radius:14px;padding:20px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;">
+      <div>
+        <div style="font-size:16px;font-weight:700;">B.Sc. Electrical Engineering</div>
+        <div style="font-size:14px;color:var(--dim);margin-top:3px;">Islamic Azad University, South Tehran Branch</div>
+      </div>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--faint);">2018 — 2023</span>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="padding:clamp(60px,10vh,120px) clamp(20px,5vw,64px);">
+    <div data-reveal="" style="max-width:760px;margin:0 auto;text-align:center;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:.08em;margin-bottom:16px;">06 — CONTACT</div>
+      <h2 style="font-size:clamp(32px,5.5vw,60px);font-weight:900;letter-spacing:-.035em;line-height:1.05;margin:0 0 22px;">Let's build something<br>reliable together.</h2>
+      <p style="font-size:18px;color:var(--dim);margin:0 0 38px;">Open to Cloud Engineering, DevOps, and research roles — internationally and remote.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+        <a href="mailto:Y.Nouri@protonmail.com" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#04161a;font-weight:700;font-size:16px;box-shadow:0 8px 30px var(--glow);transition:transform .2s,box-shadow .2s;" style-hover="transform:translateY(-3px);box-shadow:0 14px 40px var(--glow);">Y.Nouri@protonmail.com</a>
+        <a href="{{ cvHref }}" download="" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:12px;border:1px solid var(--border2);background:var(--card);color:var(--text);font-weight:600;font-size:16px;transition:border-color .2s,transform .2s;" style-hover="border-color:var(--accent);transform:translateY(-3px);">↓ Download Resume</a>
+      </div>
+      <div style="display:flex;gap:26px;justify-content:center;margin-top:34px;font-size:14px;font-weight:500;">
+        <a href="https://github.com/Yeyo-N" target="_blank" rel="noopener" style="text-decoration:none;color:var(--dim);transition:color .2s;" style-hover="color:var(--accent);">GitHub ↗</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener" style="text-decoration:none;color:var(--dim);transition:color .2s;" style-hover="color:var(--accent);">LinkedIn ↗</a>
+        <span style="color:var(--faint);">Tehran, Iran · UTC+3:30</span>
+      </div>
+    </div>
+    <div style="max-width:1180px;margin:clamp(50px,8vh,90px) auto 0;padding-top:26px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--faint);">
+      <span>© 2026 Yahya Fathollah Nouri</span>
+      
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:820}}">
+class Component extends DCLogic {
+  state = { theme: 'dark', expanded: { 0: true } };
+
+  renderVals() {
+    const theme = this.state.theme;
+    const accentDark = '#35d6e6';
+    const navItems = [
+      { label: 'About', href: '#about' },
+      { label: 'Stack', href: '#skills' },
+      { label: 'Experience', href: '#experience' },
+      { label: 'Work', href: '#projects' },
+      { label: 'Credentials', href: '#certs' },
+      { label: 'Contact', href: '#contact' },
+    ];
+    const heroStats = [
+      { value: '5+', label: 'Years in production infra' },
+      { value: '1st', label: 'Iranian HCIP Cloud Architect' },
+      { value: '118', label: 'TOEFL iBT / 120' },
+    ];
+    const aboutFacts = [
+      { k: 'FOCUS', v: 'Cloud · DevOps · Automation' },
+      { k: 'CERTIFIED', v: 'Huawei HCIP & HCIA Cloud' },
+      { k: 'BASED IN', v: 'Tehran — open to relocation' },
+      { k: 'LANGUAGES', v: 'English (C2) · Persian (native)' },
+    ];
+    const skillGroups = [
+      { title: 'Cloud & DevOps', items: ['Huawei Cloud', 'Docker', 'Kubernetes', 'Linux Admin'] },
+      { title: 'Languages', items: ['Python · Advanced', 'Bash', 'SQL · Intermediate', 'C · Basic'] },
+      { title: 'Data & Automation', items: ['ETL Design', 'Pandas', 'Web Scraping', 'Excel · Advanced', 'Data Viz'] },
+      { title: 'Telecom', items: ['Huawei U2000', 'RAN / BSS Ops', 'GSM·UMTS·LTE·5G', 'Performance Monitoring'] },
+    ];
+    const rawExp = [
+      { role: 'Data Analyst — Automation Lead', org: 'Vista Service', loc: 'Tehran', period: 'Jan 2026 – Present', current: true,
+        tags: ['Python', 'PostgreSQL', 'Docker', 'ETL'],
+        points: [
+          'Sole architect & developer of an end-to-end core-network monitoring platform — designed the full ETL pipeline, containerized the stack with Docker, and built Python backends on PostgreSQL.',
+          'Replaced legacy monitoring tools with a modern high-availability solution, sharply reducing monitoring delay and improving troubleshooting across core network nodes.',
+          'Dockerized and migrated legacy NPM platforms to modern infrastructure with full data integrity.',
+        ] },
+      { role: 'Data Analyst', org: 'Huawei Technologies Service', loc: 'Tehran', period: 'Jan 2025 – Dec 2025',
+        tags: ['Python', 'Pandas', 'Bash', 'Web Crawling'],
+        points: [
+          'Automated 9 recurring reports (4 daily, 3 weekly, 2 monthly) for KPI dashboards and subcontractor performance evaluation.',
+          'Designed process workflow, led a cloud migration, and presented a parking-management platform for the office.',
+          'Built a web crawler ingesting national power-outage data to proactively predict outages affecting critical network nodes.',
+        ] },
+      { role: 'NOC Lead Data Analyst', org: 'Huawei Technologies Service', loc: 'Tehran', period: 'Jan 2023 – Oct 2023',
+        tags: ['Python', 'Huawei U2000', 'Automation'],
+        points: [
+          'Led the “New ERA” NOC automation project — automated the radio-network ticketing system, eliminating ~6 engineers per 12-hour shift.',
+          'Developed Python detection logic and health-check routines integrated with Huawei U2000, processing 500–1,000 tickets per automation cycle plus 100 manual reviews.',
+          'Provided ongoing efficiency analysis and condition tuning for automated processes.',
+        ] },
+      { role: 'FO Technical Support Engineer', org: 'Huawei Technologies Service', loc: 'Tehran', period: 'Jan 2022 – Jan 2023',
+        tags: ['BSS', '4G/5G', 'Anomaly Detection'],
+        points: [
+          'Handled 500–1,000 automated and 100+ manual tickets across BSS environments spanning GSM, UMTS, LTE and 5G.',
+          'Developed a power-anomaly detection mechanism to flag irregular behavior in network infrastructure.',
+        ] },
+      { role: 'RAN Field Operations Engineer', org: 'Huawei Technologies Service', loc: 'Tehran', period: 'Aug 2020 – Dec 2021',
+        tags: ['RAN', 'Monitoring', 'Telecom'],
+        points: [
+          'Performed remote monitoring and ticketing for Huawei RAN infrastructure, building a strong foundation in telecom protocols and network management.',
+        ] },
+    ];
+    const experiences = rawExp.map((e, i) => {
+      const open = !!this.state.expanded[i];
+      return { ...e, open,
+        dot: e.current ? 'var(--accent)' : 'var(--border2)',
+        chevron: open ? 'rotate(180deg)' : 'rotate(0deg)',
+        onToggle: () => this.setState(s => ({ expanded: { ...s.expanded, [i]: !s.expanded[i] } })) };
+    });
+    const projects = [
+      { no: '01', name: 'Core Network Monitoring Platform',
+        problem: 'Legacy tools delivered slow, fragmented visibility across core network nodes.',
+        approach: 'Full ETL pipeline + Dockerized Python backend on PostgreSQL, built solo end-to-end.',
+        result: 'High-availability monitoring with sharply reduced delay & faster troubleshooting.',
+        tags: ['Python', 'PostgreSQL', 'Docker', 'ETL'] },
+      { no: '02', name: '“New ERA” NOC Ticketing Automation',
+        problem: 'Radio-network ticketing required manual review around the clock.',
+        approach: 'Python detection logic & health-checks integrated with Huawei U2000.',
+        result: 'Eliminated ~6 engineers per 12-hr shift; 500–1,000 tickets/cycle automated.',
+        tags: ['Python', 'U2000', 'Ops Automation'] },
+      { no: '03', name: 'Power-Outage Prediction Crawler',
+        problem: 'Grid outages silently threatened critical network hub sites.',
+        approach: 'Web crawler ingesting national power-company data into a prediction model.',
+        result: 'Proactive prediction of outages affecting critical nodes & hub sites.',
+        tags: ['Python', 'Web Scraping', 'Pandas'] },
+    ];
+    // ============================================================
+    //  CERTIFICATE VERIFICATION LINKS
+    //  Paste each certificate's "verify"/"confirm" URL between the quotes.
+    //  Coursera: open the certificate → "Verify" → copy the page URL.
+    //  edX:      the credential's verify URL.
+    //  Leave '' and the card simply stays non-clickable.
+    // ============================================================
+    const HUAWEI_VERIFY = 'https://e.huawei.com/en/talent/cert/';   // official Huawei certificate validation portal
+    const academicsRaw = [
+      { title: 'Math for ML: Multivariate Calculus', from: 'Imperial College London · Coursera', link: '' },
+      { title: 'Math for ML: Linear Algebra',        from: 'Imperial College London · Coursera', link: '' },
+      { title: 'Fat Chance: Probability',            from: 'HarvardX · edX',                     link: '' },
+      { title: 'The Data Scientist’s Toolbox',       from: 'Johns Hopkins University · Coursera', link: '' },
+      { title: 'Getting & Cleaning Data',            from: 'Johns Hopkins University · Coursera', link: '' },
+      { title: 'Data Analysis Using Python',         from: 'University of Pennsylvania · Coursera', link: '' },
+      { title: 'Intro to Python Programming',        from: 'University of Pennsylvania · Coursera', link: '' },
+      { title: 'Data Science Math Skills',           from: 'Duke University · Coursera',          link: '' },
+    ];
+    const academics = academicsRaw.map(a => ({
+      ...a,
+      has: !!a.link,
+      href: a.link || '#',
+      target: a.link ? '_blank' : '_self',
+      onClk: a.link ? undefined : (ev) => ev.preventDefault(),
+    }));
+    return {
+      themeAttr: theme,
+      themeLabel: theme === 'dark' ? 'Light' : 'Dark',
+      toggleTheme: () => this.setState(s => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
+      cvHref: 'Yahya-Nouri-CV.pdf',
+      hcipHref: HUAWEI_VERIFY, hcipId: 'ID 010202602401810059091409',
+      hciaHref: HUAWEI_VERIFY, hciaId: 'ID 010102601401810047131409',
+      navItems, heroStats, aboutFacts, skillGroups, experiences, projects, academics,
+    };
+  }
+
+  componentDidMount() {
+    // reveal-on-scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    this._revealTimer = setTimeout(() => {
+      document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+    }, 60);
+
+    // show nav links on wide screens
+    const nl = document.getElementById('navlinks');
+    const applyNav = () => { if (nl) nl.style.display = window.innerWidth > 860 ? 'flex' : 'none'; };
+    applyNav();
+    window.addEventListener('resize', applyNav);
+    this._applyNav = applyNav;
+
+    // active-section nav highlight
+    const links = [...document.querySelectorAll('.navlink')];
+    const sections = ['about','skills','experience','projects','certs','contact'];
+    const navIo = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          const id = en.target.id;
+          links.forEach(a => {
+            const on = a.getAttribute('href') === '#' + id;
+            a.style.color = on ? 'var(--accent)' : 'var(--dim)';
+          });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(id => { const s = document.getElementById(id); if (s) navIo.observe(s); });
+
+    this._startCanvas();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this._revealTimer);
+    if (this._applyNav) window.removeEventListener('resize', this._applyNav);
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._onResize) window.removeEventListener('resize', this._onResize);
+  }
+
+  _startCanvas() {
+    const cv = document.getElementById('hero-net');
+    if (!cv) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ctx = cv.getContext('2d');
+    let W, H, dpr, nodes;
+    const accent = () => getComputedStyle(document.querySelector('[data-theme]') || document.body).getPropertyValue('--accent').trim() || '#35d6e6';
+    let col = accent();
+    const setup = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = cv.clientWidth; H = cv.clientHeight;
+      cv.width = W * dpr; cv.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(72, Math.floor(W * H / 16000));
+      nodes = Array.from({ length: count }, () => ({
+        x: Math.random() * W, y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.28, vy: (Math.random() - 0.5) * 0.28,
+        r: Math.random() * 1.6 + 0.8,
+      }));
+      col = accent();
+    };
+    setup();
+    this._onResize = setup;
+    window.addEventListener('resize', setup);
+    const hexA = (hex, a) => {
+      const h = hex.replace('#',''); const n = parseInt(h.length===3 ? h.split('').map(c=>c+c).join('') : h, 16);
+      return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`;
+    };
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      for (const n of nodes) {
+        n.x += n.vx; n.y += n.vy;
+        if (n.x < 0 || n.x > W) n.vx *= -1;
+        if (n.y < 0 || n.y > H) n.vy *= -1;
+      }
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d2 = dx*dx + dy*dy;
+          if (d2 < 17000) {
+            ctx.strokeStyle = hexA(col, 0.16 * (1 - d2 / 17000));
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+      }
+      for (const n of nodes) {
+        ctx.fillStyle = hexA(col, 0.7);
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill();
+      }
+      this._raf = requestAnimationFrame(draw);
+    };
+    if (reduce) { draw(); cancelAnimationFrame(this._raf); } else { draw(); }
+  }
+}
+</script>
+</body>
+</html>
