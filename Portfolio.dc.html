@@ -41,7 +41,7 @@ a{color:inherit}a:hover{color:#35d6e6}
 .yn .meta b{color:var(--text);font-weight:500}
 .yn .meta .live{color:var(--acid)}
 .yn .name{font-stretch:125%;font-weight:900;font-size:clamp(68px,14.5vw,236px);line-height:.8;letter-spacing:-.035em;margin:60px 0 0;text-transform:uppercase}
-.yn .name span{display:block}
+.yn .name span{display:block;width:fit-content;white-space:nowrap}
 .yn .outline{color:transparent;-webkit-text-stroke:1.5px var(--text);transition:color .5s var(--ease)}
 .yn .name .outline:hover{color:var(--acid);-webkit-text-stroke-color:var(--acid)}
 .yn .hero-row{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;margin-top:40px;align-items:end}
@@ -161,6 +161,7 @@ a{color:inherit}a:hover{color:#35d6e6}
 .yn .term-b .p{color:var(--acid)}
 .yn .term-b .c{color:var(--cyan)}
 .yn .term-b .t{color:var(--text)}
+.yn .big span{display:inline-block;white-space:nowrap}
 .yn .big{font-stretch:125%;font-weight:900;font-size:clamp(60px,15vw,250px);line-height:.82;letter-spacing:-.045em;text-transform:uppercase;margin:0}
 .yn .big .a{background:linear-gradient(120deg,var(--acid),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
 .yn .contact-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;margin-top:64px;align-items:end}
@@ -527,14 +528,45 @@ class Component extends DCLogic {
     const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Tehran', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
     if (clock) { clock.textContent = fmt.format(new Date()); const iv = setInterval(() => { clock.textContent = fmt.format(new Date()); }, 1000); clean.push(() => clearInterval(iv)); }
 
+
+  /* ---------- fit display type: keep lines inside the page, equalise name lines ---------- */
+  let scrambling = 0;
+  function fitType() {
+    if (scrambling) return;
+    const fit = (el, lines) => {
+      el.style.fontSize = ''; lines.forEach(l => { l.style.letterSpacing = ''; });
+      const avail = el.clientWidth, mw = Math.max(...lines.map(l => l.getBoundingClientRect().width));
+      if (mw > avail) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * avail / mw * 0.98) + 'px';
+    };
+    const name = root.querySelector('.name'), nl = [...name.querySelectorAll('span')];
+    fit(name, nl);
+    nl.forEach(l => { l.style.marginLeft = ''; });
+    const cs = getComputedStyle(name), fs = parseFloat(cs.fontSize), b = parseFloat(getComputedStyle(nl[0]).letterSpacing) || 0;
+    const c = document.createElement('canvas').getContext('2d');
+    c.font = cs.fontWeight + ' ' + fs + 'px ' + cs.fontFamily; if ('fontStretch' in c) c.fontStretch = 'expanded';
+    // real ink edges of each line (glyph side-bearings differ between Y/A and N/I)
+    const ink = nl.map(l => { const t = l.textContent.toUpperCase(), m = c.measureText(t), n = t.length;
+      return { n, L: -m.actualBoundingBoxLeft, W: m.actualBoundingBoxRight + m.actualBoundingBoxLeft + (n - 1) * b }; });
+    if (ink.every(k => k.W > 0)) {
+      const minL = Math.min(...ink.map(k => k.L)), maxW = Math.max(...ink.map(k => k.W));
+      nl.forEach((l, i) => { const k = ink[i];
+        l.style.marginLeft = (minL - k.L) + 'px';
+        if (k.n > 1) l.style.letterSpacing = (b + (maxW - k.W) / (k.n - 1)) + 'px'; });
+    }
+    const big = root.querySelector('.big'); fit(big, [...big.querySelectorAll(':scope > span')]);
+  }
+    fitType();
+    if (document.fonts) document.fonts.ready.then(() => { if (!this._dead) fitType(); });
+    let fitT; on(window, 'resize', () => { clearTimeout(fitT); fitT = setTimeout(fitType, 120); });
+
     // scramble
     const glyphs = '!<>-_/[]{}=+*^?#ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     if (!reduce) $$('[data-yn="scramble"]').forEach((el, n) => setTimeout(() => {
       const final = el.textContent; let frame = 0;
-      const q = Array.from(final).map((c, i) => ({ c, s: Math.floor(Math.random() * 12) + i * 3, e: Math.floor(Math.random() * 14) + 18 + i * 4 }));
+      scrambling++; const q = Array.from(final).map((c, i) => ({ c, s: Math.floor(Math.random() * 12) + i * 3, e: Math.floor(Math.random() * 14) + 18 + i * 4 }));
       const run = () => { if (this._dead) return; let out = '', done = 0;
         q.forEach(ch => { if (frame >= ch.e) { out += ch.c; done++; } else if (frame >= ch.s) out += glyphs[Math.floor(Math.random() * glyphs.length)]; else out += ' '; });
-        el.textContent = out; frame++; if (done < q.length) requestAnimationFrame(run); };
+        el.textContent = out; frame++; if (done < q.length) requestAnimationFrame(run); else { scrambling--; fitType(); } };
       run();
     }, n * 180));
 
